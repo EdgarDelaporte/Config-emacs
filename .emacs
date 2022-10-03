@@ -9,16 +9,21 @@
 (setq debug-on-error t ; show stack trace on config error
       vc-follow-symlinks t) ; always follow symlink
 
+
 ; Basic interface configuration
 (tool-bar-mode -1) ; hide tool bar (GUI only)
 (scroll-bar-mode -1) ; hide scroll bar (GUI only)
 (menu-bar-mode -1) ; hide menu bar
 (global-linum-mode) ; show line numbers
 (column-number-mode) ; show column number in the modeline
+(setq inhibit-startup-screen t); on open one buffer on start
 
 ; Disable tabulations (repeated to ensure compatibility with any major mode)
 (setq-default indent-tabs-mode nil)
 (setq indent-tabs-mode nil)
+
+
+(load-theme 'sandpiper t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -29,13 +34,17 @@
  '(custom-safe-themes
    '("d6735ea0101b00b875b8a4e0a9ce9876c25bb202295ab55fe3aa556f6a4c962d" "7997e0765add4bfcdecb5ac3ee7f64bbb03018fb1ac5597c64ccca8c88b1262f" default)))
 
+
+(kill-buffer "Backtrace");kill Backtrace on open
+
+
 ;;Dired file manager https://wikemacs.org/wiki/Dired
 (with-eval-after-load 'dired
   (require 'dired-x)
   ;; Set dired-x global variables here.  For example:
   ;; (setq dired-guess-shell-gnutar "gtar")
   ;; (setq dired-x-hands-off-my-keys nil)
-  ))
+  )
 (add-hook 'dired-mode-hook
           (lambda ()
             ;; Set dired-x buffer-local variables here.  For example:
@@ -68,7 +77,7 @@
   (interactive)
   (defvar foo)
   (setq foo (concat "gcc -Wextra -Wall -std=XXX " (buffer-name) " && ./a.out" ))
-  (shell-command foo))
+(shell-command foo))
 
 (setq whitespace-style '(face ; show ...
                          tabs tab-mark ; the tabulations,
@@ -84,7 +93,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+)
 
 ;;autocomplete
 (require 'auto-complete-config)
