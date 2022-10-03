@@ -18,9 +18,13 @@
 (column-number-mode) ; show column number in the modeline
 (setq inhibit-startup-screen t); on open one buffer on start
 
-; Disable tabulations (repeated to ensure compatibility with any major mode)
+
+
+
+
 (setq-default indent-tabs-mode nil)
-(setq indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq c-basic-offset 4)
 
 
 (load-theme 'sandpiper t)
