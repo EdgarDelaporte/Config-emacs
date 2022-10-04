@@ -1,0 +1,272 @@
+\input texinfo
+@setfilename vcomplete.info
+@settitle Vcomplete User Manual
+@documentencoding UTF-8
+@documentlanguage en
+
+@copying
+@quotation
+Copyright @copyright{} 2021-2022 Daniel Semyonov
+
+You can redistribute this document and/or modify it under the terms of
+the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+This document is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+@end quotation
+@end copying
+
+@dircategory Emacs
+@direntry
+* Vcomplete: (Vcomplete). Visual completions.
+@end direntry
+
+@titlepage
+@title Vcomplete User Manual
+@subtitle for version 1.2.1.
+@author Daniel Semyonov
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top
+@top Vcomplete User Manual
+
+Vcomplete provides a minor mode enhancing the default completion list
+buffer, providing visual aids for selecting completions.
+
+@noindent
+This manual is for Vcomplete version 1.2.1.
+
+@insertcopying
+@end ifnottex
+
+@menu
+* Introduction::
+* Installation::
+* Usage::
+* Customization::
+* Keystroke Index::
+* Command Index::
+* Function Index::
+* Variable Index::
+
+@detailmenu
+--- The Detailed Node Listing ---
+
+Installation
+
+* Installing a release::
+* Installing from the Git repository::
+
+Customization
+
+* Completion commands::
+
+@end detailmenu
+@end menu
+
+@node Introduction
+@chapter Introduction
+
+Vcomplete provides a minor mode enhancing the default completion list
+buffer, providing visual aids for selecting completions. It's designed
+to build upon the default completion system, instead of replacing
+it. As such, it works both when completing in a minibuffer and in
+normal buffers.
+
+@node Installation
+@chapter Installation
+
+Vcomplete can be installed from NonGNU ELPA:
+
+@table @asis
+@item @kbd{M-x package-install RET vcomplete RET}
+@end table
+
+@menu
+* Installing a release::
+* Installing from the Git repository::
+@end menu
+
+@node Installing a release
+@section Installing a release
+
+Simply download a release (from
+<https://dsemy.com/projects/vcomplete>), and install it:
+
+@table @asis
+@item @kbd{M-x package-install-file RET /path/to/download/vcomplete-VERSION.tar RET}
+@end table
+
+@node Installing from the Git repository
+@section Installing from the Git repository
+
+Clone the repository and build the package archive:
+
+@example
+$ git clone https://git.sr.ht/~dsemy/vcomplete
+$ cd vcomplete
+$ make
+@end example
+
+Install the package:
+
+@table @asis
+@item @kbd{M-x package-install-file RET /path/to/clone/vcomplete-VERSION.tar RET}
+@end table
+
+@node Usage
+@chapter Usage
+
+It is recommended for @code{vcomplete-mode} to be enabled:
+
+@cindex vcomplete-mode
+@table @asis
+@item @kbd{M-x vcomplete-mode RET}
+You can also add @code{(vcomplete-mode)} to your init file, instead.
+@end table
+
+When @code{vcomplete-mode} is enabled, the @code{*Completions*} buffer
+appears and updates automatically (by default), and the completion at
+point in the @code{*Completions*} buffer is highlighted automatically.
+
+The following commands are also made available when completion is in
+progress:
+
+@kindex C-n
+@cindex vcomplete-next-completion
+@table @asis
+@item @kbd{C-n}
+Select the next displayed completion
+(@code{vcomplete-next-completion}).  This command moves point in the
+@code{*Completions*} buffer to the next available completion, and
+highlights it. This command may be used to advance multiple
+completions at a time with a prefix argument.
+@end table
+
+@kindex C-p
+@cindex vcomplete-prev-completion
+@table @asis
+@item @kbd{C-p}
+Select the previous displayed completion
+(@code{vcomplete-prev-completion}).  This command moves point in the
+@code{*Completions*} buffer to the previous available completion, and
+highlights it. This command may be used to advance multiple
+completions at a time with a prefix argument.
+@end table
+
+@kindex M-RET
+@cindex vcomplete-choose-completion
+@table @asis
+@item @kbd{M-RET}
+Choose the currently highlighted completion in the
+@code{*Completions*} buffer (@code{vcomplete-choose-completion}).
+@end table
+
+You may use these commands without enabling @code{vcomplete-mode}
+(although they won't be bound by default).
+@xref{Completion commands} for information regarding defining new
+commands.
+
+@node Customization
+@chapter Customization
+
+All customization, except for defining custom completion commands can
+be done through the customize interface:
+
+@table @asis
+@item @kbd{M-x customize-group RET vcomplete RET}
+@end table
+
+@defopt vcomplete-auto-update
+Whether the @code{*Completions*} buffer should open and update
+automatically. Non-nil means automatically open and
+update. Otherwise, operate according to
+@code{completion-auto-help}. By default, @code{t} is used. Note that
+with @code{completions-detailed} (introduced in Emacs 28) enabled, the
+@code{*Completions*} buffer takes much more time to display. This is
+also true for other ``annotation providers'' such as the Marginalia
+package. Consider disabling them or this option on slow computers.
+@end defopt
+
+@defopt vcomplete-search-range
+Range of search for a @code{*Completions*} window during completion.
+A value of @code{t} means consider all windows on all frames,
+@code{visible} means consider all windows on all visible frames,
+@code{0} (the number zero) means consider all windows on all visible
+and iconified frames and any other value means consider only the
+currently selected frame. By default, @code{visible} is used.
+@end defopt
+
+@menu
+* Completion commands::
+@end menu
+
+@node Completion commands
+@section Completion commands
+
+Completion commands are used to perform actions while completing. They
+are normal commands (interactive functions) which are bound to a key
+sequence in @code{vcomplete-command-map}.
+
+@defopt vcomplete-no-update-commands
+List of commands which shouldn't cause the @code{*Completions*} buffer
+to update.
+@end defopt
+
+@defvar vcomplete-command-map
+Key map which holds key bindings to completion commands. This key map
+should be available whenever completion is initiated.
+@end defvar
+
+@defun vcomplete-current-completion pos
+Get the completion candidate at POS.
+The completion candidate is returned as a list of the form:
+@example
+(COMPLETION-STRING . (BEGINNING . END))
+@end example
+If no completion is found, this function returns nil. Note that this
+function throws an error when the major mode of the buffer from which
+it is called isn't derived from @code{completion-list-mode}.
+@end defun
+
+@defmac vcomplete-with-completions-buffer body...
+Evaluate BODY with the @code{*Completions*} buffer temporarily
+current.  While evaluating BODY, BUFFER and WINDOW are locally bound
+to the @code{*Completions*} buffer and window respectively. This macro
+can be used to easily manipulate or access the contents of the
+@code{*Completions*} buffer. If there is no @code{*Completions*}
+buffer or no window displaying it BODY isn't executed.
+@end defmac
+
+@node Keystroke Index
+@appendix Keystroke Index
+
+@printindex ky
+
+@node Command Index
+@appendix Command Index
+
+@printindex cp
+
+@node Function Index
+@appendix Function Index
+
+@printindex fn
+
+@node Variable Index
+@appendix Variable Index
+
+@printindex vr
+
+@bye
