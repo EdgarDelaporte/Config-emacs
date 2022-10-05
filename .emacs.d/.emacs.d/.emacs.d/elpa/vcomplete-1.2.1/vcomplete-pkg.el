@@ -1,2 +1,0 @@
-;; Generated package description from vcomplete.el  -*- no-byte-compile: t -*-
-(define-package "vcomplete" "1.2.1" "Visual completions" '((emacs "25.1")) :commit "8450b1befd46ac9754d57e2f98f150f33bb317ce" :authors '(("Daniel Semyonov" . "daniel@dsemy.com")) :maintainer '("Vcomplete Mailing List" . "~dsemy/vcomplete-devel@lists.sr.ht") :keywords '("convenience" "matching") :url "https://dsemy.com/projects/vcomplete")

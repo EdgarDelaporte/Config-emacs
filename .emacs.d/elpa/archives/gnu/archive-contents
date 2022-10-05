@@ -1455,6 +1455,17 @@
 		    ("Titus von der Malsburg" . "malsburg@posteo.de"))
 		   (:maintainer "Titus von der Malsburg" . "malsburg@posteo.de")
 		   (:url . "https://github.com/tmalsburg/guess-language.el"))])
+ (hcel .
+       [(1 0 0)
+	((emacs
+	  (28)))
+	"Haskell codebase explorer / cross referencer" tar
+	((:url . "https://g.ypei.me/hc.el.git")
+	 (:keywords "haskell")
+	 (:maintainer "Yuchen Pei" . "id@ypei.org")
+	 (:authors
+	  ("Yuchen Pei" . "id@ypei.org"))
+	 (:commit . "a215df2f884fb445d8f159a2b4d84e6853ac9816"))])
  (heap .
        [(0 5)
 	nil "Heap (a.k.a. priority queue) data structure" single
@@ -2600,7 +2611,7 @@
 	  ("Stefan Monnier" . "monnier@iro.umontreal.ca"))
 	 (:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca"))])
  (rcirc-color .
-	      [(0 4 3)
+	      [(0 4 4)
 	       ((emacs
 		 (24 4)))
 	       "color nicks" tar
@@ -2609,7 +2620,7 @@
 		(:authors
 		 ("Alex Schroeder" . "alex@gnu.org"))
 		(:url . "https://elpa.gnu.org/packages/rcirc-color.html")
-		(:commit . "e34c4a6e338633808774c259e8bbd272351dbf4f"))])
+		(:commit . "cba15c56375575da5518f5537a22f85706625b5c"))])
  (rcirc-menu .
 	     [(1 1)
 	      nil "A menu of all your rcirc connections" single
