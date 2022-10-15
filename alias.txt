@@ -1,0 +1,3 @@
+alias sandpiper='cp -r /home/LOGIN/afs/Config-emacs/.emacs.d /home/LOGIN/'
+
+put the git repo in your afs and replace LOGIN by firstname.name
